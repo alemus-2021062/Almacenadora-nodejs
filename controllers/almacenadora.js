@@ -44,17 +44,18 @@ const postTarea = async (req = request, res = response) => {
 
 
 const putTarea = async (req = request, res = response) => {
-    try {
+    // try {
         const id = req.params.id;
         const tareaEdit = { ...req.body }
-
+        console.log("tareaEdit", tareaEdit);
         const tareaEditada = await Tarea.findByIdAndUpdate(id, tareaEdit, { new: true });
         console.log(tareaEditada);
-    } catch (error) {
-        throw new Error(error)
-    }
+    // } catch (error) {
+    //     throw new Error(error)
+    // }
     res.json({
         msg: 'Tarea modificada',
+        tareaEditada
     })
 }
 
@@ -64,7 +65,7 @@ const deleteTarea = async (req = request, res = response) => {
     try {
         const id = req.params.id;
         const tareaEliminada = await Tarea.findByIdAndDelete(id);        
-        return res.status(200).send({message: "tarea eliminada correctamente"})
+        return res.status(200).send({message: "tarea eliminada correctamente", tareaEliminada})
     } catch (err) {
         return res.status(500).send({message: err})
     }
